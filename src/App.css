@@ -1,3 +1,9 @@
 .login {
   margin: 5%;
 }
+
+.paragraph {
+  margin-left: 20%;
+  margin-right: 20%;
+  font-size: 2ch;
+}
