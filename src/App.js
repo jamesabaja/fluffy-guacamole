@@ -7,6 +7,8 @@ import Login from './components/Login/Login';
 import Dashboard from './components/CENTER/Home/Home';
 import Inventory from './components/CENTER/Inventory/Inventory';
 import Order from './components/CENTER/Order/Order';
+import ViewOrders from './components/OFFICE/ViewOrders/ViewOrders';
+import OfficeDashboard from './components/OFFICE/OfficeDashboard/Dashboard';
 
 const App = () => {
   return (
@@ -18,6 +20,9 @@ const App = () => {
         <Route exact path="/clinics" component={Dashboard} />
         <Route exact path="/clinics/inventory" component={Inventory} />
         <Route exact path="/clinics/order" component={Order} />
+        <Route exact path="/office" component={OfficeDashboard} />
+        <Route exact path="/office/view/orders" component={ViewOrders} />
+        {/* <Route exact path="/office/view/health_centers" component={ViewOrders} /> */}
       </Switch>
     </div>
     
