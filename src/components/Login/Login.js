@@ -26,10 +26,7 @@ class Login extends Component {
     .then(response => {
       localStorage.setItem('token', response.data.access);
       localStorage.setItem('isAuthenticated', 'true');
-      setTimeout(() => {
-        console.log(localStorage.getItem('isAuthenticated'))
-        this.props.history.push('/clinics');
-      }, 1000);
+      this.props.history.push('/clinics');          
     })
   }
 

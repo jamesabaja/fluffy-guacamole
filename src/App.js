@@ -1,6 +1,6 @@
 import React from 'react';
 import "./App.css";
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Login from './components/Login/Login';
@@ -25,6 +25,7 @@ const App = () => {
         </div>
         :
         <Redirect to='/login' />}
+        {/* <PrivateRoute authenticated={localStorage.getItem('isAuthenticated') === 'true'} path='/clinics' component={Dashboard}/> */}
         <Route exact path="/office" component={OfficeDashboard} />
         <Route exact path="/office/view/orders" component={ViewOrders} />
         {/* <Route exact path="/office/view/health_centers" component={ViewOrders} /> */}
@@ -34,4 +35,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default withRouter(App);
