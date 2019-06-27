@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Icon, Input, Card, Button} from 'semantic-ui-react';
+import {Container, Icon, Input, Card, Button, Loader} from 'semantic-ui-react';
 import MenuBar from '../MenuBar/MenuBar';
 import axios from 'axios';
 
@@ -8,7 +8,8 @@ class Login extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isLoading: false
     }
   }
 
@@ -21,13 +22,18 @@ class Login extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
- logIn = () => {
-    axios.post('https://medikts-backend.herokuapp.com/api/token/', this.state)
+  logIn = () => {
+    this.setState({ isLoading : true });
+    axios.post('http://localhost:8000/login/', this.state)
     .then(response => {
       localStorage.setItem('token', response.data.access);
       localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userDetails', JSON.stringify(response.data));
       this.props.history.push('/clinics');          
-    })
+    }).catch(error => {
+      this.setState({ isLoading : false });
+    });
+    
   }
 
   render() {
@@ -38,6 +44,7 @@ class Login extends Component {
           <Icon name="pills" color="teal" circular inverted size="huge"/>
           <h1>MEDikts</h1>
           <h4>Medicine Inventory Keeping and Tracking System</h4>
+          <Loader center inline active={this.state.isLoading}>Loading...</Loader>
           <br/>
           <Card centered>
             <Card.Content>
