@@ -23,19 +23,16 @@ class Login extends Component {
   }
 
   logIn = () => {
-    this.setState({ isLoading: true });
-    axios.post('http://localhost:8000/login/', {
-      "username": this.state.username,
-      "password": this.state.password
-    })
+    this.setState({ isLoading : true });
+    axios.post('http://localhost:8000/login/', this.state)
     .then(response => {
-      console.log(response.data);
-      console.log(this.state);
-      // this.setState({ isLoading: false });
-      // localStorage.setItem('token', response.data.access);
-      // localStorage.setItem('isAuthenticated', 'true');
-      // this.props.history.push('/clinics');          
-    })
+      localStorage.setItem('token', response.data.access);
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userDetails', JSON.stringify(response.data));
+      this.props.history.push('/clinics');          
+    }).catch(error => {
+      this.setState({ isLoading : false });
+    });
   }
 
   render() {
@@ -46,6 +43,7 @@ class Login extends Component {
           <Icon name="pills" color="teal" circular inverted size="huge"/>
           <h1>MEDikts</h1>
           <h4>Medicine Inventory Keeping and Tracking System</h4>
+          <Loader center inline active={this.state.isLoading}>Loading...</Loader>
           <br/>
           <Loader inline active={this.state.isLoading}>Verifying credentials...</Loader>
           {this.state.isLoading ? null : <br/>}

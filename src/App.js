@@ -25,7 +25,6 @@ const App = () => {
         </div>
         :
         <Redirect to='/login' />}
-        {/* <PrivateRoute authenticated={localStorage.getItem('isAuthenticated') === 'true'} path='/clinics' component={Dashboard}/> */}
         <Route exact path="/office" component={OfficeDashboard} />
         <Route exact path="/office/view/orders" component={ViewOrders} />
         {/* <Route exact path="/office/view/health_centers" component={ViewOrders} /> */}
