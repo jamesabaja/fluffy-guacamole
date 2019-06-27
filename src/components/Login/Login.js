@@ -15,7 +15,8 @@ class Login extends Component {
 
   componentWillMount() {
     localStorage.setItem('token', null);
-    localStorage.setItem('isAuthenticated', null);
+    localStorage.setItem('isAuthenticatedClinic', null);
+    localStorage.setItem('isAuthenticatedOffice', null);
   }
 
   onChange = (event, data) => {
@@ -26,10 +27,20 @@ class Login extends Component {
     this.setState({ isLoading : true });
     axios.post('http://localhost:8000/login/', this.state)
     .then(response => {
-      localStorage.setItem('token', response.data.access);
-      localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('userDetails', JSON.stringify(response.data));
-      this.props.history.push('/clinics');          
+      axios.get(`http://localhost:8000/health_center/staff/detail/${this.state.username}/`)
+      .then(response => {
+        localStorage.setItem('clinicDetails', JSON.stringify(response.data));
+        localStorage.setItem('isAuthenticatedClinic', 'true');
+        this.props.history.push('/clinics');     
+      }).catch(error => {
+        axios.get(`http://localhost:8000/city_office/staff/detail/${this.state.username}/`)
+        .then(response => {
+          localStorage.setItem('officeDetails', JSON.stringify(response.data));
+          localStorage.setItem('isAuthenticatedOffice', 'true');
+          this.props.history.push('/office');     
+        })
+      })
     }).catch(error => {
       this.setState({ isLoading : false });
     });
@@ -45,8 +56,6 @@ class Login extends Component {
           <h4>Medicine Inventory Keeping and Tracking System</h4>
           <Loader center inline active={this.state.isLoading}>Loading...</Loader>
           <br/>
-          <Loader inline active={this.state.isLoading}>Verifying credentials...</Loader>
-          {this.state.isLoading ? null : <br/>}
           <Card centered>
             <Card.Content>
               <Input icon='users' name='username' iconPosition='left' placeholder='Username' onChange={this.onChange}/>

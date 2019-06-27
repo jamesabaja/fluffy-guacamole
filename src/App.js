@@ -17,16 +17,21 @@ const App = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/about" component={About} />
         <Route exact path="/login" component={Login} />
-        {localStorage.getItem('isAuthenticated') === 'true' ?
+        {localStorage.getItem('isAuthenticatedClinic') === 'true' ?
         <div>
           <Route exact path="/clinics" component={Dashboard} />
           <Route exact path="/clinics/inventory" component={Inventory} />
           <Route exact path="/clinics/order" component={Order} />
         </div>
         :
+        localStorage.getItem('isAuthenticatedOffice') === 'true' ?
+        <div>
+          <Route exact path="/office" component={OfficeDashboard} />
+          <Route exact path="/office/view/orders" component={ViewOrders} />
+        </div>
+        :
         <Redirect to='/login' />}
-        <Route exact path="/office" component={OfficeDashboard} />
-        <Route exact path="/office/view/orders" component={ViewOrders} />
+        {}
         {/* <Route exact path="/office/view/health_centers" component={ViewOrders} /> */}
       </Switch>
     </div>
