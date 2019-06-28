@@ -25,16 +25,16 @@ class Login extends Component {
 
   logIn = () => {
     this.setState({ isLoading : true });
-    axios.post('http://localhost:8000/login/', this.state)
+    axios.post('https://medikts-backend.herokuapp.com/login/', this.state)
     .then(response => {
       localStorage.setItem('userDetails', JSON.stringify(response.data));
-      axios.get(`http://localhost:8000/health_center/staff/detail/${this.state.username}/`)
+      axios.get(`https://medikts-backend.herokuapp.com/health_center/staff/detail/${this.state.username}/`)
       .then(response => {
         localStorage.setItem('clinicDetails', JSON.stringify(response.data));
         localStorage.setItem('isAuthenticatedClinic', 'true');
         this.props.history.push('/clinics');     
       }).catch(error => {
-        axios.get(`http://localhost:8000/city_office/staff/detail/${this.state.username}/`)
+        axios.get(`https://medikts-backend.herokuapp.com/city_office/staff/detail/${this.state.username}/`)
         .then(response => {
           localStorage.setItem('officeDetails', JSON.stringify(response.data));
           localStorage.setItem('isAuthenticatedOffice', 'true');

@@ -12,7 +12,7 @@ class OfficeDashboard extends Component {
     let lastName = JSON.parse(localStorage.getItem('userDetails'))['last_name'];
     this.setState({ name: firstName + " " + lastName });
     if(!localStorage.getItem('cityDetails')) {
-      axios.get(`http://localhost:8000/city_office/offices/detail/${JSON.parse(localStorage.getItem('officeDetails'))['city_office_id']}/`)
+      axios.get(`https://medikts-backend.herokuapp.com/city_office/offices/detail/${JSON.parse(localStorage.getItem('officeDetails'))['city_office_id']}/`)
       .then(response => {
         localStorage.setItem('cityDetails', JSON.stringify(response.data));
         this.setState({ 

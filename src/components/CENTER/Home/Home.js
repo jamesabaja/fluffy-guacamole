@@ -11,7 +11,7 @@ class Dashboard extends Component {
     let lastName = JSON.parse(localStorage.getItem('userDetails'))['last_name'];
     this.setState({ name: firstName + " " + lastName });
     if(!localStorage.getItem('centerDetails')) {
-      axios.get(`http://localhost:8000/health_center/centers/detail/${JSON.parse(localStorage.getItem('clinicDetails'))['health_center_id']}/`)
+      axios.get(`https://medikts-backend.herokuapp.com/health_center/centers/detail/${JSON.parse(localStorage.getItem('clinicDetails'))['health_center_id']}/`)
       .then(response => {
         localStorage.setItem('centerDetails', JSON.stringify(response.data));
         this.setState({ 
