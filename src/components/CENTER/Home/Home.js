@@ -105,6 +105,16 @@ class Dashboard extends Component {
       })
     })
   }
+
+  checkIfOK = (code) => {
+    let returnValue = false;
+    this.state.orders.map(item => {
+      if(item.product_code === code) {
+        returnValue = true;
+      }
+    })
+    return returnValue;
+  }
   
   render() { 
     return ( 
@@ -197,7 +207,7 @@ class Dashboard extends Component {
                 <Table.Cell>{item.current_quantity} / {item.starting_quantity}</Table.Cell>
                 <Table.Cell>{percent <= 0.40 ?
                 <Modal
-                  trigger={<Button color='red' onClick={() => this.orderMeds(item)}>ORDER NOW</Button>}
+                  trigger={<Button color='red' disabled={this.checkIfOK(item.inventory_id)} onClick={() => this.orderMeds(item)}>{this.checkIfOK(item.product_code) ? 'ORDERED' : 'ORDER NOW'}</Button>}
                   open={this.state.orderModalOpen}
                   onClose={this.toggleOrderModal}
                   size='small'
