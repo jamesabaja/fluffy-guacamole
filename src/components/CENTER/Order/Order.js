@@ -7,14 +7,14 @@ class Order extends Component {
   state = { orders: [] }
 
   componentWillMount() {
-    axios.get('http://localhost:8000/orders/all')
+    axios.get('https://medikts-backend.herokuapp.com/orders/all')
     .then(response => {
       this.setState({ orders : response.data });
     })
   }
 
   receiveOrder = (item) => {
-    axios.get('http://localhost:8000/inventory/all')
+    axios.get('https://medikts-backend.herokuapp.com/inventory/all')
     .then(response => {
       console.log('done1')
       response.data.map(inv => {
@@ -22,10 +22,10 @@ class Order extends Component {
         if(item.product_code === inv.inventory_id) {
           inv.current_quantity += item.order_quantity;
           console.log(inv)
-          axios.put(`http://localhost:8000/inventory/detail/${inv.inventory_id}/`, inv)
+          axios.put(`https://medikts-backend.herokuapp.com/inventory/detail/${inv.inventory_id}/`, inv)
           .then(response => {
             console.log('done2')
-            axios.delete(`http://localhost:8000/orders/detail/${item.order_id}/`)
+            axios.delete(`https://medikts-backend.herokuapp.com/orders/detail/${item.order_id}/`)
             .then(response => {
               this.props.history.push('/clinics/inventory')
             })

@@ -25,14 +25,14 @@ class Inventory extends Component {
 
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   componentWillMount() {
-    axios.get('http://localhost:8000/inventory/all')
+    axios.get('https://medikts-backend.herokuapp.com/inventory/all')
     .then(response => {
       this.setState({ inventory : response.data });
     })
   }
 
   updateStocks = () => {
-    axios.put(`http://localhost:8000/inventory/detail/${this.state.item.inventory_id}/`, this.state.item)
+    axios.put(`https://medikts-backend.herokuapp.com/inventory/detail/${this.state.item.inventory_id}/`, this.state.item)
     .then(response => [
       window.location.reload()
     ])

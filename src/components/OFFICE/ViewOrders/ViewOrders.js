@@ -13,7 +13,7 @@ class ViewOrders extends Component {
   state = { orders: [] }
 
   componentWillMount() {
-    axios.get('http://localhost:8000/orders/all')
+    axios.get('https://medikts-backend.herokuapp.com/orders/all')
     .then(response => {
       this.setState({ orders : response.data });
     })
@@ -21,7 +21,7 @@ class ViewOrders extends Component {
 
   handleChange = (e, { value, name }) => {
     name.order_status = value
-    axios.put(`http://localhost:8000/orders/detail/${name.order_id}/`, name)
+    axios.put(`https://medikts-backend.herokuapp.com/orders/detail/${name.order_id}/`, name)
     .then(response => {
       window.location.reload()
     })
