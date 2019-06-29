@@ -54,7 +54,7 @@ class Inventory extends Component {
   orderMeds = (item) => {
     this.setState({ orderModalOpen : true });
     console.log(item.inventory_id);
-    axios.post('http://localhost:8000/orders/all', {
+    axios.post('https://medikts-backend.herokuapp.com/orders/all', {
       health_center_id: 1,
       city_office_id: 1,
       product_code: item.inventory_id,
